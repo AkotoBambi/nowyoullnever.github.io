@@ -36,13 +36,20 @@
     }
 
     a {
-      font-size: 48px;
       color: black;
       text-decoration: none;
     }
 
     a:hover {
       opacity: 0.7;
+    }
+
+    .title-link {
+      display: block;
+    }
+
+    .container > .title-link:first-child {
+      font-size: 48px;
     }
 
     .line2 { font-size: 36px; color: #267365; }
@@ -85,13 +92,13 @@
 <body>
   <section class="hero">
     <div class="container">
-      <a href="contents.html">Now You'll Never</a>
+      <a class="title-link" href="contents.html">Now You'll Never</a>
 
-      <div class="line line2">Now You'll Never</div>
-      <div class="line line3">Now You'll Never</div>
-      <div class="line line4">Now You'll Never</div>
-      <div class="line line5">Now You'll Never</div>
-      <div class="line line6">Now You'll Never</div>
+      <a class="line title-link line2" href="contents.html">Now You'll Never</a>
+      <a class="line title-link line3" href="contents.html">Now You'll Never</a>
+      <a class="line title-link line4" href="contents.html">Now You'll Never</a>
+      <a class="line title-link line5" href="contents.html">Now You'll Never</a>
+      <a class="line title-link line6" href="contents.html">Now You'll Never</a>
     </div>
   </section>
 

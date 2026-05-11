@@ -22,6 +22,7 @@
       padding: 0;
       min-height: 100%;
       background: white;
+      overflow-x: hidden;
     }
 
     body {
@@ -34,8 +35,8 @@
       top: 28px;
       left: 32px;
       z-index: 30;
-      text-decoration: none;
       color: black;
+      text-decoration: none;
       font-size: 30px;
       font-family: 'AwesomeBiPolar', serif;
     }
@@ -51,6 +52,7 @@
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     .contents-menu {
@@ -58,6 +60,40 @@
       width: 100%;
       min-height: 520px;
       flex: 1;
+      overflow-x: hidden;
+      overflow-y: visible;
+    }
+
+    .motion-control {
+      position: fixed;
+      left: 24px;
+      bottom: 22px;
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      color: black;
+      font-family: 'KJDcom', sans-serif;
+      font-size: 15px;
+      user-select: none;
+    }
+
+    .motion-control label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .motion-control input[type="checkbox"] {
+      width: auto;
+      margin: 0;
+      accent-color: black;
+    }
+
+    .motion-control input[type="range"] {
+      width: 150px;
+      accent-color: black;
     }
 
     .contents-group {
@@ -67,8 +103,7 @@
     }
 
     .contents-title {
-      display: block;
-      width: 100%;
+      display: inline-block;
       border: 0;
       padding: 0;
       background: transparent;
@@ -144,18 +179,14 @@
       font-family: 'KJDcom', sans-serif;
     }
 
-    .footer a {
-      color: black;
-      font-family: 'KJDcom', sans-serif;
-      text-decoration: none;
-    }
-
+    .footer a,
     .footer a:link,
     .footer a:visited,
     .footer a:hover,
     .footer a:active {
       color: black;
       text-decoration: none;
+      font-family: 'KJDcom', sans-serif;
     }
 
     .footer a:hover {
@@ -193,13 +224,11 @@
   <div class="page">
     <div class="contents-menu" aria-label="contents navigation">
       <div class="contents-group">
-        <button class="contents-title" type="button">Release / News</button>
+        <button class="contents-title" type="button">Release</button>
 
         <div class="contents-list">
-          <a class="post-link" href="https://remnantsrecords.bandcamp.com/album/songs-for-healing-despair" target="_blank">V/A Compilation - Songs for Healing Despair</a>
           <a class="post-link" href="https://gainando.bandcamp.com/album/chunghwadong" target="_blank">Gainando - 청화동</a>
           <a class="post-link" href="https://gainando.bandcamp.com/album/blue-meadow-over-the-space" target="_blank">Gainando - 우주 위 파란 초원</a>
-          <a class="post-link" href="https://ecclesium.bandcamp.com/album/ecclesium-vol-2" target="_blank">V/A Compilation - ecclesium vol.2</a>
           <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/-" target="_blank">도깨비나무</a>
           <a class="post-link" href="https://avalanchemarkforever.bandcamp.com/album/2004-reminisce" target="_blank">Avalanche Mark Forever - 2004 reminisce</a>
           <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/ep" target="_blank">은하수와 달과 별을 사랑하는 혹성들 EP</a>
@@ -209,6 +238,23 @@
           <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/nyn-no-audience-live-album" target="_blank">Nyn "No Audience" Live Album</a>
           <a class="post-link" href="https://juncag004.bandcamp.com/album/cat-in-the-barrel" target="_blank">Juncag004 - 통 속의 고양이</a>
           <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/arbitrary-schematic" target="_blank">Arbitrary schematic</a>
+        </div>
+      </div>
+
+      <div class="contents-group">
+        <button class="contents-title" type="button">Appears on</button>
+
+        <div class="contents-list">
+          <a class="post-link" href="https://postrockgallery.bandcamp.com/album/postrockgallery-compilation-vol-1" target="_blank">Postrockgallery Compilation Vol. 1</a>
+          <a class="post-link" href="https://postrockgallery.bandcamp.com/album/postrockgallery-compilation-vol-2" target="_blank">Postrockgallery Compilation Vol. 2</a>
+          <a class="post-link" href="https://postrockgallery.bandcamp.com/album/postrockgallery-compilation-vol-3" target="_blank">Postrockgallery Compilation Vol. 3</a>
+          <a class="post-link" href="https://postrockgallery.bandcamp.com/album/postrockgallery-compilation-vol-4" target="_blank">Postrockgallery Compilation Vol. 4</a>
+          <a class="post-link" href="https://ecclesium.bandcamp.com/album/ecclesium-vol-2" target="_blank">ecclesium vol.2</a>
+          <a class="post-link" href="https://revybreaux.bandcamp.com/album/my-broken-behalf" target="_blank">Revy Breaux - 여전히 서로의 곁에서</a>
+          <a class="post-link" href="https://remnantsrecords.bandcamp.com/album/songs-for-healing-despair" target="_blank">Songs for Healing Despair</a>
+          <a class="post-link" href="https://pishu.bandcamp.com/album/birds-promises-moonlights-and-remixes" target="_blank">Pishu - Birds, Promises, Moonlights, and Remixes</a>
+          <a class="post-link" href="https://lightsatbydark.bandcamp.com/album/hug" target="_blank">Lightsatbydark - hug</a>
+          <a class="post-link" href="https://lightsatbydark.bandcamp.com/album/the-everywhere-place" target="_blank">Lightsatbydark - the Everywhere Place</a>
         </div>
       </div>
 
@@ -232,6 +278,18 @@
     <div class="footer">
       <a href="contact.html">contact</a>
     </div>
+  </div>
+
+  <div class="motion-control">
+    <label>
+      <input class="bouncing-control" type="checkbox" />
+      start bouncing
+    </label>
+
+    <label>
+      acceleration
+      <input class="acceleration-control" type="range" min="0.25" max="2.5" step="0.05" value="0.25" />
+    </label>
   </div>
 
   <script src="contents-dropdown.js"></script>
