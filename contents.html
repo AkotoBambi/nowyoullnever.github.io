@@ -78,10 +78,19 @@
       line-height: 1.2;
       text-align: left;
       cursor: pointer;
+      user-select: none;
     }
 
     .contents-title:hover {
       opacity: 0.7;
+    }
+
+    .contents-group.is-dragging {
+      z-index: 40;
+    }
+
+    .contents-group.is-dragging .contents-title {
+      cursor: grabbing;
     }
 
     .contents-list {
