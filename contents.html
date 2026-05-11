@@ -13,13 +13,14 @@
 
     @font-face {
       font-family: 'KJDcom';
-      /* 대괄호 파일명 대응 (따옴표 필수) */
       src: url("./fonts/[Kim]KJDcom-Medium.ttf") format('truetype');
     }
 
-    html, body {
+    html,
+    body {
       margin: 0;
       padding: 0;
+      min-height: 100%;
       background: white;
     }
 
@@ -28,47 +29,87 @@
       word-break: keep-all;
     }
 
+    .home-link {
+      position: fixed;
+      top: 28px;
+      left: 32px;
+      z-index: 30;
+      text-decoration: none;
+      color: black;
+      font-size: 30px;
+      font-family: 'AwesomeBiPolar', serif;
+    }
+
+    .home-link:hover {
+      opacity: 0.6;
+    }
+
     .page {
       width: 100%;
+      min-height: 100vh;
       padding: 90px 80px;
       box-sizing: border-box;
-    }
-
-    .columns {
-      display: flex;
-      justify-content: center;
-      gap: 120px;
-      align-items: flex-start;
-    }
-
-    .column {
-      width: 320px;
-      height: 720px;
-      border: 3px solid #111;
       display: flex;
       flex-direction: column;
-      background: white;
     }
 
-    .column-title {
-      font-size: 30px;
-      padding: 16px 18px;
-      border-bottom: 3px solid #111;
-      flex-shrink: 0;
-    }
-
-    .column-body {
-      padding: 22px 18px;
-      font-size: 22px;
-      line-height: 1.4;
-      overflow-y: auto;
-      overflow-x: auto;
+    .contents-menu {
+      position: relative;
+      width: 100%;
+      min-height: 520px;
       flex: 1;
-      box-sizing: border-box;
     }
 
-    .post-list {
+    .contents-group {
+      position: absolute;
+      width: 320px;
+      will-change: transform;
+    }
+
+    .contents-title {
+      display: block;
+      width: 100%;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: black;
+      font-family: 'KJDcom', sans-serif;
+      font-size: 30px;
+      line-height: 1.2;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .contents-title:hover {
+      opacity: 0.7;
+    }
+
+    .contents-list {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 20;
       min-width: max-content;
+      max-width: calc(100vw - 80px);
+      height: 0;
+      margin-top: 18px;
+      overflow: hidden;
+      background: white;
+      opacity: 0;
+      transform: translateY(-8px);
+      transition:
+        height 280ms ease,
+        opacity 180ms ease,
+        transform 280ms ease;
+    }
+
+    .contents-group.is-open {
+      z-index: 25;
+    }
+
+    .contents-group.is-open .contents-list {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .post-link {
@@ -78,54 +119,61 @@
       margin-bottom: 8px;
       white-space: nowrap;
       font-family: 'KJDcom', sans-serif;
+      font-size: 22px;
+      line-height: 1.4;
     }
 
     .post-link:hover {
       opacity: 0.6;
     }
 
-    .home-link {
-      position: fixed;
-      top: 28px;
-      left: 32px;
-      text-decoration: none;
-      color: black;
-      font-size: 30px;
-      font-family: 'AwesomeBiPolar', serif;
-    }
-
     .footer {
-      margin-top: 120px;
+      margin-top: auto;
+      padding-top: 120px;
       text-align: center;
       font-size: 22px;
       font-family: 'KJDcom', sans-serif;
     }
 
     .footer a {
-      text-decoration: none;
       color: black;
       font-family: 'KJDcom', sans-serif;
+      text-decoration: none;
+    }
+
+    .footer a:link,
+    .footer a:visited,
+    .footer a:hover,
+    .footer a:active {
+      color: black;
+      text-decoration: none;
     }
 
     .footer a:hover {
       opacity: 0.6;
     }
 
-    .column-body::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
+    @media (max-width: 900px) {
+      .page {
+        padding: 90px 32px;
+      }
 
-    .column-body::-webkit-scrollbar-track {
-      background: white;
-    }
+      .contents-menu {
+        min-height: 620px;
+      }
 
-    .column-body::-webkit-scrollbar-thumb {
-      background: #d9d9d9;
-    }
+      .contents-group {
+        width: min(320px, 100%);
+      }
 
-    .column-body::-webkit-scrollbar-thumb:hover {
-      background: #bdbdbd;
+      .contents-list {
+        min-width: 0;
+        max-width: calc(100vw - 64px);
+      }
+
+      .post-link {
+        white-space: normal;
+      }
     }
   </style>
 </head>
@@ -134,78 +182,49 @@
   <a class="home-link" href="index.html">home</a>
 
   <div class="page">
-    <div class="columns">
+    <div class="contents-menu" aria-label="contents navigation">
+      <div class="contents-group">
+        <button class="contents-title" type="button">Release / News</button>
 
-      <div class="column">
-        <div class="column-title">Release / news</div>
-        <div class="column-body">
-          <div class="post-list">
-            <a class="post-link" href="https://remnantsrecords.bandcamp.com/album/songs-for-healing-despair" target="_blank">
-              V/A Compilation - Songs for Healing Despair
-            </a>
-            <a class="post-link" href="https://gainando.bandcamp.com/album/chunghwadong" target="_blank">
-              Gainando - 청화동
-            </a>
-            <a class="post-link" href="https://gainando.bandcamp.com/album/blue-meadow-over-the-space" target="_blank">
-              Gainando - 우주 위 파란 초원
-            </a>
-            <a class="post-link" href="https://ecclesium.bandcamp.com/album/ecclesium-vol-2" target="_blank">
-              V/A Compilation - ecclesium vol.2
-            </a>
-            <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/-" target="_blank">
-              도깨비나무
-            </a>
-            <a class="post-link" href="https://avalanchemarkforever.bandcamp.com/album/2004-reminisce" target="_blank">
-              Avalanche Mark Forever - 2004 reminisce
-            </a>
-            <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/ep" target="_blank">
-              은하수와 달과 별을 사랑하는 혹성들 EP
-            </a>
-            <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/mobile-demo-works-escape-demo-works" target="_blank">
-              Mobile demo works...Escape! (demo works)
-            </a>
-            <a class="post-link" href="https://juncag004.bandcamp.com/album/ambience-brand-new-yesterday-anthology-ep" target="_blank">
-              Juncag004 - Ambience/Brand New Yesterday Anthology EP
-            </a>
-            <a class="post-link" href="https://gainando.bandcamp.com/album/see-you-miss-you" target="_blank">
-              Gainando - See You Miss You
-            </a>
-            <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/nyn-no-audience-live-album" target="_blank">
-              Nyn "No Audience" Live Album
-            </a>
-            <a class="post-link" href="https://juncag004.bandcamp.com/album/cat-in-the-barrel" target="_blank">
-              Juncag004 - 통 속의 고양이
-            </a>
-            <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/arbitrary-schematic" target="_blank">
-              Arbitrary schematic
-            </a>
-          </div>
+        <div class="contents-list">
+          <a class="post-link" href="https://remnantsrecords.bandcamp.com/album/songs-for-healing-despair" target="_blank">V/A Compilation - Songs for Healing Despair</a>
+          <a class="post-link" href="https://gainando.bandcamp.com/album/chunghwadong" target="_blank">Gainando - 청화동</a>
+          <a class="post-link" href="https://gainando.bandcamp.com/album/blue-meadow-over-the-space" target="_blank">Gainando - 우주 위 파란 초원</a>
+          <a class="post-link" href="https://ecclesium.bandcamp.com/album/ecclesium-vol-2" target="_blank">V/A Compilation - ecclesium vol.2</a>
+          <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/-" target="_blank">도깨비나무</a>
+          <a class="post-link" href="https://avalanchemarkforever.bandcamp.com/album/2004-reminisce" target="_blank">Avalanche Mark Forever - 2004 reminisce</a>
+          <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/ep" target="_blank">은하수와 달과 별을 사랑하는 혹성들 EP</a>
+          <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/mobile-demo-works-escape-demo-works" target="_blank">Mobile demo works...Escape! (demo works)</a>
+          <a class="post-link" href="https://juncag004.bandcamp.com/album/ambience-brand-new-yesterday-anthology-ep" target="_blank">Juncag004 - Ambience/Brand New Yesterday Anthology EP</a>
+          <a class="post-link" href="https://gainando.bandcamp.com/album/see-you-miss-you" target="_blank">Gainando - See You Miss You</a>
+          <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/nyn-no-audience-live-album" target="_blank">Nyn "No Audience" Live Album</a>
+          <a class="post-link" href="https://juncag004.bandcamp.com/album/cat-in-the-barrel" target="_blank">Juncag004 - 통 속의 고양이</a>
+          <a class="post-link" href="https://nowyoullnever.bandcamp.com/album/arbitrary-schematic" target="_blank">Arbitrary schematic</a>
         </div>
       </div>
 
-      <div class="column">
-        <div class="column-title">Personal</div>
-        <div class="column-body">
-          <div class="post-list">
-            <a class="post-link" href="posts/post1.html">Now You'll Never - 도깨비나무 / 국악 플런더포닉스에 대한 좀 두서없는 생각들</a>
-          </div>
+      <div class="contents-group">
+        <button class="contents-title" type="button">Personal</button>
+
+        <div class="contents-list">
+          <a class="post-link" href="posts/post1.html">Now You'll Never - 도깨비나무 / 국악 플런더포닉스에 대한 좀 두서없는 생각들</a>
         </div>
       </div>
 
-      <div class="column">
-        <div class="column-title">Archival</div>
-        <div class="column-body">
-          <div class="post-list">
-            <a class="post-link" href="#">글 1</a>
-          </div>
+      <div class="contents-group">
+        <button class="contents-title" type="button">Archival</button>
+
+        <div class="contents-list">
+          <a class="post-link" href="#">글 1</a>
         </div>
       </div>
-
     </div>
 
     <div class="footer">
       <a href="contact.html">contact</a>
     </div>
   </div>
+
+  <script src="contents-dropdown.js"></script>
 </body>
 </html>
