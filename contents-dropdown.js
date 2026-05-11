@@ -1,5 +1,14 @@
 const menu = document.querySelector('.contents-menu');
 const groups = Array.from(document.querySelectorAll('.contents-group'));
+const dvdColors = [
+  '#f23030',
+  '#f28705',
+  '#f2cb05',
+  '#267365',
+  '#265c73',
+  '#7b3ff2',
+  '#f23f9c',
+];
 
 function openList(group) {
   const list = group.querySelector('.contents-list');
@@ -52,6 +61,21 @@ function setupDropdowns() {
 function setupDvdMotion() {
   if (!menu || groups.length === 0) {
     return;
+  }
+
+  function changeColor(mover) {
+    const title = mover.group.querySelector('.contents-title');
+    const currentColor = title.dataset.colorIndex
+      ? Number(title.dataset.colorIndex)
+      : -1;
+    let nextColor = Math.floor(Math.random() * dvdColors.length);
+
+    if (nextColor === currentColor) {
+      nextColor = (nextColor + 1) % dvdColors.length;
+    }
+
+    title.dataset.colorIndex = String(nextColor);
+    title.style.color = dvdColors[nextColor];
   }
 
   const movers = groups.map((group, index) => ({
@@ -131,6 +155,7 @@ function setupDvdMotion() {
           hit.vy = (distanceY / distance) * force;
           hit.x += hit.vx * 4;
           hit.y += hit.vy * 4;
+          changeColor(hit);
           placeInsideBounds(hit);
           continue;
         }
@@ -152,6 +177,8 @@ function setupDvdMotion() {
           const firstVelocity = first.vx;
           first.vx = second.vx;
           second.vx = firstVelocity;
+          changeColor(first);
+          changeColor(second);
         } else {
           const push = overlapY / 2;
 
@@ -166,6 +193,8 @@ function setupDvdMotion() {
           const firstVelocity = first.vy;
           first.vy = second.vy;
           second.vy = firstVelocity;
+          changeColor(first);
+          changeColor(second);
         }
       }
     }
@@ -239,6 +268,7 @@ function setupDvdMotion() {
 
   measureMovers();
   setupDragging();
+  movers.forEach(changeColor);
   movers.forEach(placeInsideBounds);
 
   function animate() {
@@ -258,11 +288,13 @@ function setupDvdMotion() {
       if (mover.x <= 0 || mover.x >= maxX) {
         mover.vx *= -1;
         mover.x = Math.min(Math.max(mover.x, 0), maxX);
+        changeColor(mover);
       }
 
       if (mover.y <= 0 || mover.y >= maxY) {
         mover.vy *= -1;
         mover.y = Math.min(Math.max(mover.y, 0), maxY);
+        changeColor(mover);
       }
     });
 
