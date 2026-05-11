@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fishing</title>
+
+  <style>
+    @font-face {
+      font-family: 'AwesomeBiPolar';
+      src: url('../fonts/AwesomeBi_polar-Regular.ttf') format('truetype');
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background: white;
+      color: black;
+    }
+
+    body {
+      font-family: 'AwesomeBiPolar', serif;
+    }
+
+    .home-link {
+      position: fixed;
+      top: 28px;
+      left: 32px;
+      z-index: 30;
+      color: black;
+      text-decoration: none;
+      font-size: 30px;
+      font-family: 'AwesomeBiPolar', serif;
+    }
+
+    .home-link:hover {
+      opacity: 0.6;
+    }
+
+    .fishing-stage {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 96px 32px;
+    }
+
+    .fishing-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 56px;
+    }
+
+    .ascii-art {
+      margin: 0;
+      font-family: "Courier New", Consolas, monospace;
+      font-size: 18px;
+      line-height: 1.08;
+      white-space: pre;
+    }
+
+    .catch-panel {
+      width: min(720px, 52vw);
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      color: black;
+      font-family: 'AwesomeBiPolar', serif;
+      font-size: 26px;
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+
+    .catch-button {
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: black;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .catch-button:hover {
+      opacity: 0.6;
+    }
+
+    .catch-message {
+      margin: 0;
+      font-family: 'AwesomeBiPolar', serif;
+      font-size: clamp(14px, 1.35vw, 18px);
+      line-height: 1.35;
+      white-space: nowrap;
+    }
+
+    .is-hidden {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      .fishing-row {
+        flex-direction: column;
+        gap: 28px;
+      }
+
+      .ascii-art {
+        font-size: 14px;
+      }
+
+      .catch-panel {
+        width: min(520px, 88vw);
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="home-link" href="../index.html">home</a>
+
+  <main class="fishing-stage">
+    <div class="fishing-row">
+      <pre class="ascii-art" aria-label="fishing ascii art"></pre>
+
+      <div class="catch-panel">
+        <button class="catch-button" type="button">[낚기]</button>
+        <p class="catch-message is-hidden"></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="fishing.js"></script>
+</body>
+</html>

@@ -102,6 +102,10 @@
       will-change: transform;
     }
 
+    .contents-group.is-hidden {
+      display: none;
+    }
+
     .contents-title {
       display: inline-block;
       border: 0;
@@ -114,6 +118,10 @@
       text-align: left;
       cursor: pointer;
       user-select: none;
+    }
+
+    a.contents-title {
+      text-decoration: none;
     }
 
     .contents-title:hover {
@@ -272,6 +280,10 @@
         <div class="contents-list">
           <a class="post-link" href="#">글 1</a>
         </div>
+      </div>
+
+      <div class="contents-group minigame-group is-hidden">
+        <a class="contents-title" href="minigame/minigame.html">Minigame</a>
       </div>
     </div>
 

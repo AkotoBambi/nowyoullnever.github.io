@@ -1,5 +1,6 @@
 const menu = document.querySelector('.contents-menu');
 const groups = Array.from(document.querySelectorAll('.contents-group'));
+const minigameGroup = document.querySelector('.minigame-group');
 const bouncingControl = document.querySelector('.bouncing-control');
 const accelerationControl = document.querySelector('.acceleration-control');
 const dvdColors = [
@@ -23,6 +24,10 @@ function getBaseMenuMinHeight() {
 function openList(group) {
   const list = group.querySelector('.contents-list');
 
+  if (!list) {
+    return;
+  }
+
   group.classList.add('is-open');
 
   if (list.style.height === 'auto') {
@@ -35,6 +40,11 @@ function openList(group) {
 
 function closeList(group) {
   const list = group.querySelector('.contents-list');
+
+  if (!list) {
+    return;
+  }
+
   const currentHeight = list.scrollHeight;
 
   list.style.height = `${currentHeight}px`;
@@ -77,6 +87,10 @@ function setupDropdowns() {
       closeList(group);
     });
 
+    if (!list) {
+      return;
+    }
+
     list.addEventListener('transitionend', (event) => {
       if (event.propertyName !== 'height') {
         return;
@@ -100,6 +114,18 @@ function setupDvdMotion() {
 
   if (bouncingControl) {
     bouncingControl.checked = isBouncing;
+  }
+
+  function setMinigameVisibility(shouldShow) {
+    if (!minigameGroup) {
+      return;
+    }
+
+    minigameGroup.classList.toggle('is-hidden', !shouldShow);
+  }
+
+  function getActiveMovers() {
+    return movers.filter((mover) => !mover.group.classList.contains('is-hidden'));
   }
 
   function getAcceleration() {
@@ -205,7 +231,7 @@ function setupDvdMotion() {
   function randomizeMovers() {
     const bounds = menu.getBoundingClientRect();
 
-    movers.forEach((mover) => {
+    getActiveMovers().forEach((mover) => {
       const maxX = Math.max(0, bounds.width - mover.visualWidth);
       const maxY = Math.max(0, bounds.height - mover.visualHeight);
 
@@ -221,14 +247,16 @@ function setupDvdMotion() {
 
   function centerMovers() {
     const bounds = menu.getBoundingClientRect();
+    const activeMovers = getActiveMovers();
     const gap = 70;
     const totalWidth =
-      movers.reduce((sum, mover) => sum + mover.visualWidth, 0) +
-      gap * Math.max(0, movers.length - 1);
+      activeMovers.reduce((sum, mover) => sum + mover.visualWidth, 0) +
+      gap * Math.max(0, activeMovers.length - 1);
     let x = Math.max(0, (bounds.width - totalWidth) / 2);
-    const y = Math.max(0, (bounds.height - Math.max(...movers.map((mover) => mover.visualHeight))) / 2);
+    const maxHeight = Math.max(...activeMovers.map((mover) => mover.visualHeight));
+    const y = Math.max(0, (bounds.height - maxHeight) / 2);
 
-    movers.forEach((mover) => {
+    activeMovers.forEach((mover) => {
       mover.x = x;
       mover.y = y;
       mover.vx = 0;
@@ -279,10 +307,12 @@ function setupDvdMotion() {
   }
 
   function bounceFromEachOther() {
-    for (let i = 0; i < movers.length; i += 1) {
-      for (let j = i + 1; j < movers.length; j += 1) {
-        const first = movers[i];
-        const second = movers[j];
+    const activeMovers = getActiveMovers();
+
+    for (let i = 0; i < activeMovers.length; i += 1) {
+      for (let j = i + 1; j < activeMovers.length; j += 1) {
+        const first = activeMovers[i];
+        const second = activeMovers[j];
 
         if (first.isDragging && second.isDragging) {
           continue;
@@ -406,6 +436,7 @@ function setupDvdMotion() {
     });
   }
 
+  setMinigameVisibility(isBouncing);
   measureMovers();
   setupDragging();
   movers.forEach((mover) => {
@@ -425,7 +456,7 @@ function setupDvdMotion() {
   function animate() {
     const bounds = menu.getBoundingClientRect();
 
-    movers.forEach((mover) => {
+    getActiveMovers().forEach((mover) => {
       if (!isBouncing || mover.isDragging) {
         return;
       }
@@ -453,7 +484,7 @@ function setupDvdMotion() {
       bounceFromEachOther();
     }
 
-    movers.forEach((mover) => {
+    getActiveMovers().forEach((mover) => {
       placeInsideBounds(mover);
     });
 
@@ -463,7 +494,7 @@ function setupDvdMotion() {
   window.addEventListener('resize', () => {
     measureMovers();
     if (isBouncing) {
-      movers.forEach(placeInsideBounds);
+      getActiveMovers().forEach(placeInsideBounds);
     } else {
       centerMovers();
     }
@@ -475,6 +506,8 @@ function setupDvdMotion() {
     bouncingControl.addEventListener('change', () => {
       isBouncing = bouncingControl.checked;
       localStorage.setItem('contentsStartBouncing', String(isBouncing));
+      setMinigameVisibility(isBouncing);
+      measureMovers();
 
       if (isBouncing) {
         randomizeMovers();
