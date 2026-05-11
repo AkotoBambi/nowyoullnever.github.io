@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Post</title>
+
+  <style>
+    /* home용 폰트 */
+    @font-face {
+      font-family: 'AwesomeBiPolar';
+      src: url('../fonts/AwesomeBi_polar-Regular.ttf') format('truetype');
+    }
+
+    /* 본문 폰트 */
+    @font-face {
+      font-family: 'NanumMyeongjo';
+      src: url('../fonts/NanumMyeongjo-Regular.ttf') format('truetype');
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: white;
+      color: black;
+      font-family: 'KJD', serif;
+    }
+
+    .home-link {
+      position: fixed;
+      top: 28px;
+      left: 32px;
+      text-decoration: none;
+      color: black;
+      font-size: 18px;
+      font-family: 'AwesomeBiPolar', serif;
+    }
+
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 110px 30px 80px 30px;
+      box-sizing: border-box;
+    }
+
+    .title {
+      font-size: 34px;
+      margin-bottom: 18px;
+    }
+
+    .date {
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+
+    .content {
+	  font-family: 'NanumMyeongjo', serif;
+      font-size: 22px;
+      line-height: 1.9;
+      white-space: pre-wrap;
+    }
+	.image-block {
+	  margin: 40px 0;
+	}
+	.image-block img {
+	  max-width: 100%;
+	  height: auto;
+	  display: block;
+	}
+	.caption {
+	  font-size: 16px;
+	  margin-top: 6px;
+	  opacity: 0.6;
+	}
+  </style>
+</head>
+<body>
+  <a class="home-link" href="../contents.html">← home</a>
+
+  <div class="page">
+    <div class="title">글 제목</div>
+    <div class="date">날짜</div>
+
+    <div class="content">
+글쓰는곳
+
+엔터두번
+
+아래는 사진.
+
+<div class="image-block">
+  <img src="../images/ducks.jpg">
+</div>
+
+이건 사진 이후의 글
+
+
+
+
+    </div>
+  </div>
+</body>
+</html>
